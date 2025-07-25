@@ -10,13 +10,19 @@
         const searchInput = $('#bonus-search');
         const filterButtons = $('.filter-btn');
         const bonusContainer = $('#bonus-cards-container');
+        const container = $('.mobile-bonus-list-container');
+        const template = container.data('template') || 'vertical';
         
         let searchTimeout;
         let currentCategory = 'all';
         let currentSearch = '';
+        let sliderIndex = 0;
         
         // Initialize event listeners
         setupEventListeners();
+        
+        // Initialize template-specific functionality
+        initializeTemplate(template);
         
         function setupEventListeners() {
             // Search input with debounce
@@ -26,7 +32,7 @@
                 
                 searchTimeout = setTimeout(function() {
                     currentSearch = searchTerm;
-                    performFilter(currentSearch, currentCategory);
+                    performFilter(currentSearch, currentCategory, template);
                 }, 300); // 300ms debounce
             });
             
@@ -47,13 +53,13 @@
                 }, 150);
                 
                 currentCategory = category;
-                performFilter(currentSearch, currentCategory);
+                performFilter(currentSearch, currentCategory, template);
             });
             
             // Handle bonus button clicks for analytics (optional)
             $(document).on('click', '.bonus-button', function() {
-                const bonusTitle = $(this).closest('.bonus-card').find('.bonus-title').text();
-                console.log('Bonus clicked:', bonusTitle);
+                const bonusTitle = $(this).closest('.bonus-card, .accordion-item').find('.bonus-title, .bonus-title-accordion').text();
+                console.log('Bonus tıklandı:', bonusTitle);
                 
                 // Add click effect
                 $(this).addClass('clicked');
@@ -61,9 +67,70 @@
                     $(this).removeClass('clicked');
                 }, 200);
             });
+            
+            // Accordion functionality
+            $(document).on('click', '.accordion-header', function() {
+                const item = $(this).closest('.accordion-item');
+                const isActive = item.hasClass('active');
+                
+                // Close all accordion items
+                $('.accordion-item').removeClass('active');
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    item.addClass('active');
+                }
+            });
+            
+            // Slider navigation
+            $(document).on('click', '.slider-prev', function() {
+                navigateSlider('prev');
+            });
+            
+            $(document).on('click', '.slider-next', function() {
+                navigateSlider('next');
+            });
         }
         
-        function performFilter(search, category) {
+        function initializeTemplate(template) {
+            if (template === 'slider') {
+                initializeSlider();
+            } else if (template === 'accordion') {
+                initializeAccordion();
+            }
+        }
+        
+        function initializeSlider() {
+            // Auto-slide functionality (optional)
+            setInterval(function() {
+                if ($('.bonus-slider .bonus-card').length > 1) {
+                    navigateSlider('next');
+                }
+            }, 5000); // 5 seconds
+        }
+        
+        function initializeAccordion() {
+            // Close all accordion items initially
+            $('.accordion-item').removeClass('active');
+        }
+        
+        function navigateSlider(direction) {
+            const slider = $('.bonus-slider');
+            const cards = slider.find('.bonus-card');
+            const cardWidth = cards.first().outerWidth(true);
+            const maxIndex = cards.length - 1;
+            
+            if (direction === 'next') {
+                sliderIndex = sliderIndex >= maxIndex ? 0 : sliderIndex + 1;
+            } else {
+                sliderIndex = sliderIndex <= 0 ? maxIndex : sliderIndex - 1;
+            }
+            
+            const translateX = -sliderIndex * cardWidth;
+            slider.css('transform', `translateX(${translateX}px)`);
+        }
+        
+        function performFilter(search, category, template) {
             // Show loading state
             showLoading();
             
@@ -72,7 +139,8 @@
                 action: 'filter_bonuses',
                 nonce: mbl_ajax.nonce,
                 search: search,
-                category: category
+                category: category,
+                template: template
             };
             
             // Perform AJAX request
@@ -90,23 +158,27 @@
                     if (response.success) {
                         updateBonusContainer(response.data);
                         animateResults();
+                        
+                        // Reinitialize template functionality after AJAX update
+                        initializeTemplate(template);
+                        sliderIndex = 0; // Reset slider index
                     } else {
-                        showError('Failed to load bonuses: ' + (response.data || 'Unknown error'));
+                        showError('Bonuslar yüklenemedi: ' + (response.data || 'Bilinmeyen hata'));
                     }
                 },
                 error: function(xhr, status, error) {
-                    let errorMessage = 'Failed to load bonuses.';
+                    let errorMessage = 'Bonuslar yüklenemedi.';
                     
                     if (status === 'timeout') {
-                        errorMessage = 'Request timed out. Please try again.';
+                        errorMessage = 'İstek zaman aşımına uğradı. Lütfen tekrar deneyin.';
                     } else if (xhr.status === 0) {
-                        errorMessage = 'Network error. Please check your connection.';
+                        errorMessage = 'Ağ hatası. Lütfen bağlantınızı kontrol edin.';
                     } else if (xhr.status >= 500) {
-                        errorMessage = 'Server error. Please try again later.';
+                        errorMessage = 'Sunucu hatası. Lütfen daha sonra tekrar deneyin.';
                     }
                     
                     showError(errorMessage);
-                    console.error('AJAX Error:', status, error);
+                    console.error('AJAX Hatası:', status, error);
                 },
                 complete: function() {
                     // Re-enable controls
@@ -118,7 +190,7 @@
         }
         
         function showLoading() {
-            bonusContainer.html('<div class="loading">Loading bonuses...</div>');
+            bonusContainer.html('<div class="loading">Bonuslar yükleniyor...</div>');
         }
         
         function hideLoading() {
@@ -140,17 +212,17 @@
                     padding: 20px;
                     margin: 20px 0;
                 ">
-                    <strong>Error:</strong> ${message}
+                    <strong>Hata:</strong> ${message}
                     <br><br>
                     <button onclick="location.reload()" style="
-                        background: #f7931e;
+                        background: var(--mbl-primary, #f7931e);
                         color: white;
                         border: none;
                         padding: 8px 16px;
                         border-radius: 6px;
                         cursor: pointer;
                         font-size: 14px;
-                    ">Retry</button>
+                    ">Tekrar Dene</button>
                 </div>
             `;
             bonusContainer.html(errorHtml);
@@ -158,7 +230,7 @@
         
         function animateResults() {
             // Animate bonus cards entrance
-            const cards = $('.bonus-card');
+            const cards = $('.bonus-card, .accordion-item');
             cards.each(function(index) {
                 const card = $(this);
                 card.css({
@@ -212,16 +284,44 @@
         
         // Add touch feedback for mobile devices
         if ('ontouchstart' in window) {
-            $(document).on('touchstart', '.bonus-button, .filter-btn', function() {
+            $(document).on('touchstart', '.bonus-button, .filter-btn, .accordion-header, .slider-prev, .slider-next', function() {
                 $(this).addClass('touch-active');
             });
             
-            $(document).on('touchend', '.bonus-button, .filter-btn', function() {
+            $(document).on('touchend', '.bonus-button, .filter-btn, .accordion-header, .slider-prev, .slider-next', function() {
                 const element = $(this);
                 setTimeout(function() {
                     element.removeClass('touch-active');
                 }, 150);
             });
+        }
+        
+        // Swipe functionality for slider
+        if (template === 'slider') {
+            let startX = 0;
+            let endX = 0;
+            
+            bonusContainer.on('touchstart', function(e) {
+                startX = e.originalEvent.touches[0].clientX;
+            });
+            
+            bonusContainer.on('touchend', function(e) {
+                endX = e.originalEvent.changedTouches[0].clientX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const threshold = 50;
+                const diff = startX - endX;
+                
+                if (Math.abs(diff) > threshold) {
+                    if (diff > 0) {
+                        navigateSlider('next');
+                    } else {
+                        navigateSlider('prev');
+                    }
+                }
+            }
         }
         
         // Performance optimization: Lazy load images if needed
@@ -275,7 +375,7 @@
             }
         });
         
-        console.log('Mobile Bonus List initialized successfully');
+        console.log('Mobile Bonus List başarıyla başlatıldı');
     }
     
 })(jQuery);
@@ -284,7 +384,10 @@
 const additionalCSS = `
     <style>
         .filter-btn.clicked,
-        .bonus-button.clicked {
+        .bonus-button.clicked,
+        .accordion-header.clicked,
+        .slider-prev.clicked,
+        .slider-next.clicked {
             transform: scale(0.95) !important;
         }
         
@@ -307,8 +410,11 @@ const additionalCSS = `
         /* Accessibility improvements */
         .filter-btn:focus,
         #bonus-search:focus,
-        .bonus-button:focus {
-            outline: 2px solid #f7931e;
+        .bonus-button:focus,
+        .accordion-header:focus,
+        .slider-prev:focus,
+        .slider-next:focus {
+            outline: 2px solid var(--mbl-primary, #f7931e);
             outline-offset: 2px;
         }
         
@@ -317,9 +423,18 @@ const additionalCSS = `
             .bonus-card,
             .filter-btn,
             .bonus-button,
-            .announcement-bar::before {
+            .announcement-bar::before,
+            .bonus-slider,
+            .accordion-content {
                 transition: none !important;
                 animation: none !important;
+            }
+        }
+        
+        /* Slider responsive adjustments */
+        @media (max-width: 320px) {
+            .template-slider .bonus-card {
+                min-width: 260px;
             }
         }
     </style>

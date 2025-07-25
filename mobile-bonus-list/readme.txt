@@ -1,6 +1,6 @@
 === Mobile Bonus List ===
-Contributors: yourname
-Tags: bonus, casino, betting, mobile, shortcode, ajax
+Contributors: Time SEO Agencija
+Tags: bonus, casino, betting, mobile, shortcode, ajax, türkçe, turkish
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.4
@@ -8,149 +8,220 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A WordPress plugin to manage and display bonus listings for betting/casino sites with mobile-first design.
+Bahis/casino siteleri için bonus listelerini yönetmek ve görüntülemek için mobil öncelikli tasarımlı WordPress eklentisi.
 
-== Description ==
+== Açıklama ==
 
-Mobile Bonus List is a comprehensive WordPress plugin designed specifically for betting and casino websites. It allows you to easily manage and display bonus offers with a beautiful, mobile-first interface that only appears on mobile devices.
+Mobile Bonus List, bahis ve casino web siteleri için özel olarak tasarlanmış kapsamlı bir WordPress eklentisidir. Sadece mobil cihazlarda görünen güzel, mobil öncelikli bir arayüzle bonus tekliflerini kolayca yönetmenizi ve görüntülemenizi sağlar.
 
-= Key Features =
+= Ana Özellikler =
 
-* **Custom Post Type**: Dedicated "Bonus" post type for easy management
-* **Mobile-Only Display**: Responsive design that only shows on devices under 768px width
-* **AJAX Filtering**: Real-time search and category filtering without page reloads
-* **Modern UI**: Dark theme with orange accents (#f7931e) for a modern app-like experience
-* **SEO Friendly**: All bonus links include rel="nofollow" attributes
-* **Elementor Compatible**: Works seamlessly with Elementor page builder
-* **Performance Optimized**: CSS and JS only load when shortcode is present
+* **Özel Yazı Türü**: Kolay yönetim için özel "Bonus" yazı türü
+* **Sadece Mobil Görünüm**: 768px altındaki cihazlarda görünen responsive tasarım
+* **AJAX Filtreleme**: Sayfa yenilenmeden gerçek zamanlı arama ve kategori filtreleme
+* **Modern UI**: Modern uygulama benzeri deneyim için koyu tema ve turuncu vurgular (#f7931e)
+* **SEO Dostu**: Tüm bonus linkleri rel="nofollow" özelliği içerir
+* **Elementor Uyumlu**: Elementor sayfa oluşturucu ile sorunsuz çalışır
+* **Performans Optimize**: CSS ve JS sadece shortcode mevcut olduğunda yüklenir
+* **Çoklu Şablon**: Dikey liste, slider ve accordion görünüm seçenekleri
+* **Renk Özelleştirme**: Admin panelden frontend renklerini ayarlayabilme
+* **Otomatik Tarih Kontrolü**: Başlangıç ve bitiş tarihlerine göre otomatik göster/gizle
 
-= Bonus Management =
+= Bonus Yönetimi =
 
-Each bonus entry includes:
-* Site name (title)
-* Logo upload
-* Bonus description text
-* Bonus link (opens in new tab with nofollow)
-* Category assignment (Trend, Recommended, or All)
+Her bonus girişi şunları içerir:
+* Site adı (başlık)
+* Logo yükleme
+* Bonus açıklama metni (örn: "1000₺ Hoşgeldin Bonusu")
+* Bonus linki (yeni sekmede nofollow ile açılır)
+* Kategori ataması (Trend, Önerilen veya Tümü)
+* Sıra numarası (1., 2., 3. sıraya göre sıralama)
+* Başlangıç ve bitiş tarihleri
+* Aylık ödeme tutarı (sadece admin panelde görünür)
 
-= Frontend Display =
+= Frontend Görünümü =
 
-The plugin provides a `[bonus_list]` shortcode that displays:
-* Top and bottom announcement bars
-* Search functionality
-* Category filter buttons (All, Trend, Recommended)
-* Responsive bonus cards with logos and call-to-action buttons
+Eklenti `[bonus_list]` shortcode'u sağlar ve şunları görüntüler:
+* Üst ve alt duyuru barları
+* Arama işlevselliği
+* Kategori filtre butonları (Tümü, Trend, Önerilen)
+* Logo ve eylem butonları ile responsive bonus kartları
 
-= Styling =
+= Şablon Seçenekleri =
 
-* Background color: #0b1224 (dark blue)
-* Card background: #1d2236 (lighter blue)
-* Primary accent: #f7931e (orange)
-* Fully responsive mobile-app-style interface
-* Smooth animations and hover effects
+* **Dikey Liste**: `[bonus_list template="vertical"]` (varsayılan)
+* **Slider**: `[bonus_list template="slider"]` (kaydırılabilir carousel)
+* **Accordion**: `[bonus_list template="accordion"]` (açılır/kapanır liste)
 
-== Installation ==
+= Stil Özellikleri =
 
-1. Upload the plugin files to the `/wp-content/plugins/mobile-bonus-list` directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Navigate to 'Bonuses' in your WordPress admin to start adding bonus entries.
-4. Use the `[bonus_list]` shortcode on any page or post to display the bonus list.
+* Arka plan rengi: #0b1224 (koyu mavi) - özelleştirilebilir
+* Kart arka planı: #1d2236 (açık mavi) - özelleştirilebilir
+* Ana vurgu: #f7931e (turuncu) - özelleştirilebilir
+* Tam responsive mobil uygulama tarzı arayüz
+* Yumuşak animasyonlar ve hover efektleri
 
-== Usage ==
+= Admin Dashboard =
 
-= Adding Bonuses =
+* Toplam bonus sayısı istatistikleri
+* Aktif bonuslar sayısı
+* Süresi bitmiş bonuslar
+* Yaklaşan başlangıç tarihleri
+* Toplam aylık ödeme tutarı
+* Görsel olarak güzel WordPress native stili
 
-1. Go to **Bonuses > Add New** in your WordPress admin
-2. Enter the site name as the title
-3. Upload a logo using the logo upload field
-4. Enter the bonus description in the bonus text field
-5. Add the bonus URL in the bonus link field
-6. Select appropriate categories (Trend, Recommended, or both)
-7. Publish the bonus
+== Kurulum ==
 
-= Displaying Bonuses =
+1. Eklenti dosyalarını `/wp-content/plugins/mobile-bonus-list` dizinine yükleyin veya WordPress eklenti ekranından doğrudan kurun.
+2. Eklentiyi WordPress'teki 'Eklentiler' ekranından etkinleştirin.
+3. Bonus girişleri eklemeye başlamak için WordPress yöneticinizde 'Bonuslar'a gidin.
+4. Bonus listesini görüntülemek istediğiniz herhangi bir sayfada veya yazıda `[bonus_list]` shortcode'unu kullanın.
 
-Simply add the `[bonus_list]` shortcode to any page, post, or Elementor widget where you want the bonus list to appear. The list will only be visible on mobile devices (screen width < 768px).
+== Kullanım ==
 
-= Elementor Integration =
+= Bonus Ekleme =
 
-1. Add a Text Editor widget to your Elementor page
-2. Insert the `[bonus_list]` shortcode
-3. The bonus list will render with full functionality
+1. WordPress yöneticinizde **Bonuslar > Yeni Ekle**'ye gidin
+2. Site adını başlık olarak girin
+3. Logo yükleme alanını kullanarak logo yükleyin
+4. Bonus metni alanına bonus açıklamasını girin
+5. Bonus linki alanına bonus URL'sini ekleyin
+6. Uygun kategorileri seçin (Trend, Önerilen veya her ikisi)
+7. Sıra numarasını belirleyin
+8. İsteğe bağlı olarak başlangıç ve bitiş tarihlerini ayarlayın
+9. Aylık ödeme tutarını girin (sadece kayıt için)
+10. Bonusu yayınlayın
 
-== Frequently Asked Questions ==
+= Bonusları Görüntüleme =
 
-= Why doesn't the bonus list show on desktop? =
+Bonus listesinin görünmesini istediğiniz herhangi bir sayfaya, yazıya veya Elementor widget'ına `[bonus_list]` shortcode'unu ekleyin. Liste sadece mobil cihazlarda (ekran genişliği < 768px) görünür olacaktır.
 
-This plugin is specifically designed for mobile users only. The bonus list is hidden on desktop devices (screen width ≥ 768px) by design to provide a focused mobile experience.
+Şablon seçenekleri:
+* `[bonus_list]` - Varsayılan dikey liste
+* `[bonus_list template="slider"]` - Slider görünümü
+* `[bonus_list template="accordion"]` - Accordion görünümü
 
-= Can I customize the colors? =
+= Elementor Entegrasyonu =
 
-The plugin uses a predefined color scheme optimized for mobile casino/betting sites. For customization, you can override the CSS styles in your theme's stylesheet.
+1. Elementor sayfanıza bir Metin Editörü widget'ı ekleyin
+2. `[bonus_list]` shortcode'unu ekleyin
+3. Bonus listesi tam işlevsellikle render edilecektir
 
-= How do I add more categories? =
+= Renk Özelleştirme =
 
-The plugin comes with "Trend" and "Recommended" categories by default. You can add more categories by going to **Bonuses > Categories** in your WordPress admin.
+1. **Bonus Yönetimi > Ayarlar**'a gidin
+2. İstediğiniz renkleri seçin:
+   - Arka plan rengi
+   - Kart arka plan rengi
+   - Ana renk (butonlar)
+   - Yazı rengi
+   - Buton yazı rengi
+3. Ayarları kaydedin
 
-= Are the bonus links SEO-friendly? =
+== Sık Sorulan Sorular ==
 
-Yes, all bonus links automatically include `rel="nofollow"` and `target="_blank"` attributes for proper SEO handling of affiliate/promotional links.
+= Bonus listesi neden masaüstünde görünmüyor? =
 
-= Does this work with caching plugins? =
+Bu eklenti özel olarak sadece mobil kullanıcılar için tasarlanmıştır. Bonus listesi, odaklanmış bir mobil deneyim sağlamak için tasarım gereği masaüstü cihazlarda (ekran genişliği ≥ 768px) gizlidir.
 
-Yes, the plugin is compatible with most caching plugins. The AJAX functionality ensures dynamic content updates without affecting cached pages.
+= Renkleri özelleştirebilir miyim? =
 
-== Screenshots ==
+Evet! Admin panelden **Bonus Yönetimi > Ayarlar** bölümünden tüm renkleri özelleştirebilirsiniz.
 
-1. Mobile bonus list display with search and filter functionality
-2. Admin interface for adding new bonuses
-3. Bonus categories management
-4. Elementor integration example
+= Nasıl daha fazla kategori eklerim? =
 
-== Changelog ==
+Eklenti varsayılan olarak "Trend" ve "Önerilen" kategorileri ile gelir. WordPress yöneticinizde **Bonuslar > Kategoriler**'e giderek daha fazla kategori ekleyebilirsiniz.
+
+= Bonus linkleri SEO dostu mu? =
+
+Evet, tüm bonus linkleri otomatik olarak affiliate/promosyon linklerinin uygun SEO işlenmesi için `rel="nofollow"` ve `target="_blank"` özelliklerini içerir.
+
+= Bu önbellekleme eklentileri ile çalışır mı? =
+
+Evet, eklenti çoğu önbellekleme eklentisi ile uyumludur. AJAX işlevselliği, önbelleğe alınmış sayfaları etkilemeden dinamik içerik güncellemeleri sağlar.
+
+= Bonuslar otomatik olarak gösterilip gizlenebilir mi? =
+
+Evet! Her bonus için başlangıç ve bitiş tarihleri ayarlayabilirsiniz. Bonuslar belirlenen tarihlerde otomatik olarak görünür/gizlenir.
+
+== Ekran Görüntüleri ==
+
+1. Arama ve filtre işlevselliği ile mobil bonus listesi görünümü
+2. Yeni bonus ekleme için admin arayüzü
+3. Bonus kategorileri yönetimi
+4. Dashboard istatistikleri
+5. Renk özelleştirme ayarları
+6. Slider şablonu görünümü
+7. Accordion şablonu görünümü
+8. Elementor entegrasyon örneği
+
+== Değişiklik Günlüğü ==
 
 = 1.0.0 =
-* Initial release
-* Custom post type for bonuses
-* Mobile-first responsive design
-* AJAX search and filtering
-* Elementor compatibility
-* SEO-friendly bonus links
-* Performance optimizations
+* İlk sürüm
+* Bonuslar için özel yazı türü
+* Mobil öncelikli responsive tasarım
+* AJAX arama ve filtreleme
+* Çoklu şablon desteği (dikey, slider, accordion)
+* Elementor uyumluluğu
+* SEO dostu bonus linkleri
+* Performans optimizasyonları
+* Türkçe dil desteği
+* Admin dashboard istatistikleri
+* Renk özelleştirme paneli
+* Otomatik tarih kontrolü
+* Örnek bonus verileri
 
-== Upgrade Notice ==
+== Yükseltme Bildirimi ==
 
 = 1.0.0 =
-Initial release of Mobile Bonus List plugin.
+Mobile Bonus List eklentisinin ilk sürümü.
 
-== Developer Notes ==
+== Geliştirici Notları ==
 
-= Hooks and Filters =
+= Hook'lar ve Filtreler =
 
-The plugin provides several hooks for developers:
+Eklenti geliştiriciler için çeşitli hook'lar sağlar:
 
-* `mbl_bonus_card_html` - Filter bonus card HTML output
-* `mbl_search_query_args` - Filter WP_Query arguments for search
-* `mbl_ajax_response` - Filter AJAX response data
+* `mbl_bonus_card_html` - Bonus kartı HTML çıktısını filtrele
+* `mbl_search_query_args` - Arama için WP_Query argümanlarını filtrele
+* `mbl_ajax_response` - AJAX yanıt verilerini filtrele
 
-= Custom Styling =
+= Özel Stil =
 
-To customize the appearance, override these CSS classes in your theme:
+Görünümü özelleştirmek için temanızda bu CSS sınıflarını geçersiz kılın:
 
-* `.mobile-bonus-list-container` - Main container
-* `.bonus-card` - Individual bonus cards
-* `.filter-btn` - Category filter buttons
-* `.bonus-button` - Bonus action buttons
+* `.mobile-bonus-list-container` - Ana konteyner
+* `.bonus-card` - Bireysel bonus kartları
+* `.filter-btn` - Kategori filtre butonları
+* `.bonus-button` - Bonus eylem butonları
+* `.bonus-slider` - Slider şablonu
+* `.bonus-accordion` - Accordion şablonu
 
-= Performance =
+= CSS Değişkenleri =
 
-The plugin follows WordPress best practices:
-* Conditional asset loading
-* Proper nonce verification
-* Sanitized inputs and escaped outputs
-* Optimized database queries
-* Mobile-first responsive design
+Renkleri özelleştirmek için CSS değişkenlerini kullanın:
 
-== Support ==
+* `--mbl-bg-color` - Arka plan rengi
+* `--mbl-card-bg` - Kart arka plan rengi
+* `--mbl-primary` - Ana renk
+* `--mbl-text` - Yazı rengi
+* `--mbl-btn-text` - Buton yazı rengi
 
-For support and feature requests, please contact the plugin author or visit the plugin's support forum.
+= Performans =
+
+Eklenti WordPress en iyi uygulamalarını takip eder:
+* Koşullu varlık yükleme
+* Uygun nonce doğrulama
+* Temizlenmiş girdiler ve kaçırılmış çıktılar
+* Optimize edilmiş veritabanı sorguları
+* Mobil öncelikli responsive tasarım
+
+== Destek ==
+
+Destek ve özellik istekleri için Time SEO Agencija ile iletişime geçin: https://www.timeseoagencija.me
+
+== Yazar ==
+
+Bu eklenti Time SEO Agencija tarafından geliştirilmiştir.
+Web sitesi: https://www.timeseoagencija.me
